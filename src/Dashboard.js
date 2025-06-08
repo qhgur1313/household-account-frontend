@@ -1,48 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import { Chart, PieController, ArcElement, Tooltip, Legend } from "chart.js";
 import styles from "./CategorySummaryTable.module.css";
 
 Chart.register(PieController, ArcElement, Tooltip, Legend);
 
-function getDefaultMonthRange() {
-  // 오늘을 KST 기준으로 구함
-  const now = new Date();
-  const kstOffset = 9 * 60; // 분
-  const localOffset = now.getTimezoneOffset();
-  const diff = (kstOffset + localOffset) * 60 * 1000;
-  const kstNow = new Date(now.getTime() + diff);
-
-  const year = kstNow.getFullYear();
-  const month = kstNow.getMonth() + 1; // 1~12
-  const start = `${year}-${String(month).padStart(2, '0')}-01`;
-  // 말일 구하기
-  const endDate = new Date(year, month, 0); // 다음달 0일 = 이번달 말일
-  const end = `${year}-${String(month).padStart(2, '0')}-${String(endDate.getDate()).padStart(2, '0')}`;
-  return { start, end };
-}
-
-function CategorySummaryTable() {
+function Dashboard({ data, startDate, endDate, loading }) {
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
-  const [rawData, setRawData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [startDate, setStartDate] = useState(getDefaultMonthRange().start);
-  const [endDate, setEndDate] = useState(getDefaultMonthRange().end);
-  const [fetchParams, setFetchParams] = useState({ start: getDefaultMonthRange().start, end: getDefaultMonthRange().end });
-
-  useEffect(() => {
-    setLoading(true);
-    fetch(`http://localhost:8000/records?start_date=${fetchParams.start}&end_date=${fetchParams.end}`)
-      .then((res) => res.json())
-      .then((json) => {
-        setRawData(json);
-        setLoading(false);
-      });
-  }, [fetchParams]);
 
   // 카테고리별 합계 계산
   const categoryMap = {};
-  rawData.forEach((row) => {
+  data.forEach((row) => {
     if (!categoryMap[row.category]) {
       categoryMap[row.category] = 0;
     }
@@ -54,7 +22,7 @@ function CategorySummaryTable() {
 
   // 결제수단별 합계 계산
   const paymentMap = {};
-  rawData.forEach((row) => {
+  data.forEach((row) => {
     if (!paymentMap[row.method]) {
       paymentMap[row.method] = 0;
     }
@@ -116,7 +84,7 @@ function CategorySummaryTable() {
         chartInstance.current.destroy();
       }
     };
-  }, [loading, rawData]);
+  }, [loading, data]);
 
   if (loading) return <div>로딩 중...</div>;
 
@@ -129,11 +97,7 @@ function CategorySummaryTable() {
       <div className={styles.header}>
         <h1>💰 가계부</h1>
         <div className={styles["date-range"]}>
-          <label>기간: </label>
-          <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} max={endDate} />
-          ~
-          <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)} min={startDate} />
-          <button onClick={() => setFetchParams({ start: startDate, end: endDate })}>조회</button>
+          기간: {startDate} ~ {endDate}
         </div>
         <div className={styles["total-amount"]}>총 지출: ₩{totalAmount.toLocaleString()}</div>
       </div>
@@ -215,4 +179,4 @@ function CategorySummaryTable() {
   );
 }
 
-export default CategorySummaryTable;
+export default Dashboard;
