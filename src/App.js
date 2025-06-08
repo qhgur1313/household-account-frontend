@@ -49,7 +49,7 @@ function AppNavigation() {
       value={value}
       onChange={(e, newValue) => setValue(newValue)}
       showLabels
-      sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 1000 }}
+      sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 1000, paddingBottom: 'env(safe-area-inset-bottom)' }}
     >
       <BottomNavigationAction label="대시보드" icon={<MdDashboard />} />
       <BottomNavigationAction label="내역" icon={<MdList />} />
@@ -92,7 +92,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div style={{ paddingBottom: 56 }}>
+      <div style={{ paddingBottom: 56 + 20 }}>
         <PeriodSelector
           startDate={startDate}
           endDate={endDate}

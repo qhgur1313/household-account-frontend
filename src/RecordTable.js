@@ -224,7 +224,7 @@ function RecordTable({ data, startDate, endDate, loading, refetchRecords }) {
               const currentRecordId = row.id || data.find(r => r.etc === row.etc && r.date === row.date && r.amount === row.amount)?.id;
               return (
               <tr key={currentRecordId || `temp-${Math.random()}`} style={{ borderBottom: "1px solid #eee" }}>
-                <td style={{ padding: "8px 6px", fontSize: "0.85rem", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }} onDoubleClick={() => handleEditDoubleClick(currentRecordId, 'date', row.date)}>
+                <td style={{ padding: "8px 6px", fontSize: "0.85rem", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", textAlign: "center" }} onDoubleClick={() => handleEditDoubleClick(currentRecordId, 'date', row.date)}>
                   {editCell.id === currentRecordId && editCell.field === 'date' ? (
                     <>
                       <input
@@ -243,7 +243,7 @@ function RecordTable({ data, startDate, endDate, loading, refetchRecords }) {
                     row.date
                   )}
                 </td>
-                <td style={{ padding: "8px 6px", fontSize: "0.85rem", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }} onDoubleClick={() => handleEditDoubleClick(currentRecordId, 'category', row.category)}>
+                <td style={{ padding: "8px 6px", fontSize: "0.85rem", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", textAlign: "center" }} onDoubleClick={() => handleEditDoubleClick(currentRecordId, 'category', row.category)}>
                   {editCell.id === currentRecordId && editCell.field === 'category' ? (
                     <>
                       <select
@@ -263,7 +263,7 @@ function RecordTable({ data, startDate, endDate, loading, refetchRecords }) {
                     row.category
                   )}
                 </td>
-                <td style={{ padding: "8px 6px", fontSize: "0.85rem", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }} onDoubleClick={() => handleEditDoubleClick(currentRecordId, 'method', row.method)}>
+                <td style={{ padding: "8px 6px", fontSize: "0.85rem", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", textAlign: "center" }} onDoubleClick={() => handleEditDoubleClick(currentRecordId, 'method', row.method)}>
                   {editCell.id === currentRecordId && editCell.field === 'method' ? (
                     <>
                       <select
@@ -302,7 +302,7 @@ function RecordTable({ data, startDate, endDate, loading, refetchRecords }) {
                     <span style={{ color: "#e74c3c", fontWeight: 600 }}>₩{row.amount.toLocaleString()}</span>
                   )}
                 </td>
-                <td style={{ padding: "8px 6px", fontSize: "0.85rem", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }} onDoubleClick={() => handleEditDoubleClick(currentRecordId, 'user_name', row.user)}>
+                <td style={{ padding: "8px 6px", fontSize: "0.85rem", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", textAlign: "center" }} onDoubleClick={() => handleEditDoubleClick(currentRecordId, 'user_name', row.user)}>
                   {editCell.id === currentRecordId && editCell.field === 'user_name' ? (
                     <>
                       <input
