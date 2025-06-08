@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { BottomNavigation, BottomNavigationAction } from "@mui/material";
 import { MdDashboard, MdList, MdCategory, MdPayment } from "react-icons/md";
@@ -64,21 +64,27 @@ function App() {
   const [startDate, setStartDate] = useState(defaultRange.start);
   const [endDate, setEndDate] = useState(defaultRange.end);
   const [fetchParams, setFetchParams] = useState({ start: defaultRange.start, end: defaultRange.end });
-  const [dashboardData, setDashboardData] = useState([]);
   const [recordData, setRecordData] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const refetchRecords = useCallback(async () => {
+    setLoading(true);
+    try {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/records?start_date=${fetchParams.start}&end_date=${fetchParams.end}`);
+      const json = await res.json();
+      setRecordData(json);
+    } catch (e) {
+      console.error("Failed to fetch records:", e);
+      // 에러 처리: 사용자에게 메시지 표시 등
+    } finally {
+      setLoading(false);
+    }
+  }, [fetchParams]);
+
   // 기간 변경 시 데이터 fetch
   useEffect(() => {
-    setLoading(true);
-    Promise.all([
-      fetch(`${process.env.REACT_APP_API_URL}/records?start_date=${fetchParams.start}&end_date=${fetchParams.end}`).then(res => res.json())
-    ]).then(([records]) => {
-      setDashboardData(records); // Dashboard, RecordTable 모두 같은 데이터 사용
-      setRecordData(records);
-      setLoading(false);
-    });
-  }, [fetchParams]);
+    refetchRecords();
+  }, [fetchParams, refetchRecords]);
 
   const handleSearch = () => {
     setFetchParams({ start: startDate, end: endDate });
@@ -95,8 +101,8 @@ function App() {
           onSearch={handleSearch}
         />
         <Routes>
-          <Route path="/" element={<Dashboard data={dashboardData} startDate={fetchParams.start} endDate={fetchParams.end} loading={loading} />} />
-          <Route path="/records" element={<RecordTable data={recordData} startDate={fetchParams.start} endDate={fetchParams.end} loading={loading} />} />
+          <Route path="/" element={<Dashboard data={recordData} startDate={fetchParams.start} endDate={fetchParams.end} loading={loading} />} />
+          <Route path="/records" element={<RecordTable data={recordData} startDate={fetchParams.start} endDate={fetchParams.end} loading={loading} refetchRecords={refetchRecords} />} />
           <Route path="/categories" element={<CategoryManager />} />
           <Route path="/methods" element={<MethodManager />} />
         </Routes>
