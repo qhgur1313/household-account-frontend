@@ -1,70 +1,56 @@
-# Getting Started with Create React App
+# 가계부 웹 애플리케이션 (프론트엔드)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+이 프로젝트는 개인 가계부 웹 애플리케이션의 프론트엔드 부분입니다. FastAPI로 구축된 백엔드로부터 지출 내역 데이터를 가져와 사용자에게 표와 파이 차트 형태로 시각적으로 제공합니다. 또한, 지출 내역을 추가, 수정, 삭제하고 카테고리 및 결제수단을 관리하는 기능을 포함합니다.
 
-## Available Scripts
+## 주요 기능
 
-In the project directory, you can run:
+-   **지출 내역 시각화**: 기간별 지출 내역을 표와 파이 차트로 시각화합니다.
+-   **지출 내역 관리**: 지출 내역을 추가, 수정, 삭제할 수 있습니다.
+-   **카테고리/결제수단 관리**: 지출 카테고리 및 결제수단을 추가, 수정할 수 있습니다.
+-   **반응형 디자인**: 모바일 및 데스크톱 환경에서 모두 최적화된 사용자 경험을 제공합니다.
 
-### `npm start`
+## 기술 스택
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+-   React.js
+-   Chart.js (데이터 시각화)
+-   Material-UI (MUI, UI 컴포넌트)
+-   React Router DOM (라우팅)
+-   CSS Modules (컴포넌트별 스타일링)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 환경 변수 설정
 
-### `npm test`
+프로젝트를 실행하기 전에 `.env.local` 파일을 생성하고 다음 환경 변수를 설정해야 합니다.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+프로젝트 루트 디렉토리에 `.env.local` 파일을 생성하고 아래 내용을 추가하세요:
 
-### `npm run build`
+```
+REACT_APP_API_URL=http://localhost:8000
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+-   `REACT_APP_API_URL`: FastAPI 백엔드 애플리케이션의 URL을 지정합니다. (예: 로컬 개발 환경에서는 `http://localhost:8000` 또는 배포된 Railway 백엔드 URL)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**주의**: `.env.local` 파일은 민감한 정보를 포함할 수 있으므로 Git에 커밋되지 않습니다. `.gitignore`에 자동으로 추가되어 있을 것입니다.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 프로젝트 실행 방법
 
-### `npm run eject`
+### 1. 필수 사항 설치
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+-   [Node.js](https://nodejs.org/) (npm 또는 yarn 포함)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 2. 의존성 설치
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+프로젝트 루트 디렉토리에서 다음 명령어를 실행하여 필요한 패키지를 설치합니다:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+npm install
+```
 
-## Learn More
+### 3. 애플리케이션 실행
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+의존성 설치 및 환경 변수 설정이 완료되었다면, 다음 명령어로 애플리케이션을 개발 모드로 실행할 수 있습니다:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+npm start
+```
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+애플리케이션은 일반적으로 `http://localhost:3000`에서 실행됩니다. 웹 브라우저를 열어 확인해 보세요.
