@@ -51,10 +51,10 @@ function AppNavigation() {
       showLabels
       sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 1000, paddingBottom: 'env(safe-area-inset-bottom)' }}
     >
-      <BottomNavigationAction label="대시보드" icon={<MdDashboard />} />
-      <BottomNavigationAction label="내역" icon={<MdList />} />
-      <BottomNavigationAction label="카테고리" icon={<MdCategory />} />
-      <BottomNavigationAction label="결제수단" icon={<MdPayment />} />
+      <BottomNavigationAction label="대시보드" icon={<MdDashboard />} sx={{ '.MuiBottomNavigationAction-label': { marginTop: '8px', marginBottom: '8px' } }}/>
+      <BottomNavigationAction label="내역" icon={<MdList />} sx={{ '.MuiBottomNavigationAction-label': { marginTop: '8px', marginBottom: '8px' } }}/>
+      <BottomNavigationAction label="카테고리" icon={<MdCategory />} sx={{ '.MuiBottomNavigationAction-label': { marginTop: '8px', marginBottom: '8px' } }}/>
+      <BottomNavigationAction label="결제수단" icon={<MdPayment />} sx={{ '.MuiBottomNavigationAction-label': { marginTop: '8px', marginBottom: '8px' } }}/>
     </BottomNavigation>
   );
 }
@@ -92,7 +92,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div style={{ paddingBottom: 56 + 40 }}>
+      <div style={{ paddingBottom: 56 }}>
         <PeriodSelector
           startDate={startDate}
           endDate={endDate}
