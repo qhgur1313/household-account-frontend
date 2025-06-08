@@ -92,7 +92,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div style={{ paddingBottom: 56 + 20 }}>
+      <div style={{ paddingBottom: 56 + 40 }}>
         <PeriodSelector
           startDate={startDate}
           endDate={endDate}
