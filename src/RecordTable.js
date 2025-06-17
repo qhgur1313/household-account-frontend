@@ -287,7 +287,7 @@ function RecordTable({ data, startDate, endDate, loading, refetchRecords }) {
                   {editCell.id === currentRecordId && editCell.field === 'amount' ? (
                     <>
                       <input
-                        type="number"
+                        type="text"
                         value={editValue}
                         onChange={handleEditChange}
                         onBlur={handleEditBlur}
@@ -377,7 +377,7 @@ function RecordTable({ data, startDate, endDate, loading, refetchRecords }) {
               </label>
               <label>
                 금액
-                <input type="number" name="amount" value={form.amount} onChange={handleChange} style={{ marginLeft: 8, padding: 6, borderRadius: 4, border: "1px solid #ccc" }} min={0} />
+                <input type="text" name="amount" value={form.amount} onChange={handleChange} style={{ marginLeft: 8, padding: 6, borderRadius: 4, border: "1px solid #ccc" }} />
               </label>
               <label>
                 이용자
